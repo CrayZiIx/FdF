@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:41:08 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/12/12 14:18:04 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:40:53 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	free_map(t_map *map)
 int	main(int argc, char **argv)
 {
 	t_map		*map;
+	int fd;
 
-	if (argc != 2)
+	if (argc != 2 || (fd = open(argv[1], O_RDONLY))< 0 )
 	{
 		write(1, "Rentre une map valide !", 24);
 		return (1);
