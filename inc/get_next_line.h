@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:02:32 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/08/14 18:41:02 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/11/09 13:55:20 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h> 
 
 /**structure**/
 typedef struct s_data

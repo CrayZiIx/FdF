@@ -6,17 +6,22 @@
 #    By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 12:40:07 by jolecomt          #+#    #+#              #
-#    Updated: 2023/12/08 17:47:25 by jolecomt         ###   ########.fr        #
+#    Updated: 2023/12/12 14:09:49 by jolecomt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = FdF
 SRCS		=	./src/main.c		\
-			./src/parsing.c		\
-			./src/draw_line.c	\
 			./src/color.c		\
 			./src/display.c		\
-			./src/utils.c	\
 			./src/ft_atoi.c 	\
+			./src/img_utils.c	\
+			./src/key_handler.c	\
+			./src/line_utils.c	\
+			./src/line.c		\
+			./src/parsing.c		\
+			./src/point_utils.c	\
+			./src/utils.c		\
 			${SRCS_GNL}		\
 
 SRCS_GNL	=	./src/gnl/get_next_line_utils.c	\
@@ -27,20 +32,20 @@ OBJS		=	${SRCS:.c=.o}
 CC		=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -Ilib/minilibx-linux -g
 
-all:	${OBJS}
+all:	${NAME}
+
+${NAME} : ${OBJS}
 	make -C lib/minilibx-linux
 	${CC} ${CFLAGS} ${OBJS} lib/minilibx-linux/libmlx.a -lXext -lX11 -lm -o FdF
 
 clean:
-	rm ${OBJS}
+	rm -f ${OBJS}
 
 fclean:	clean
-	rm ./FdF
+	rm -f ./FdF
 
-re:
-	make fclean
-	make
+re: fclean all
 
-.PHONY: all clean fclean
+.PHONY: all clean fclean re
 
-.SILENT:
+#.SILENT:

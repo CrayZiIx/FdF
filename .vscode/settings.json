@@ -1,0 +1,11 @@
+{
+    "editor.tabSize": 8,
+    "editor.insertSpaces": false,
+    "files.associations": {
+        "fdf.h": "c",
+        "math.h": "c",
+        "get_next_line.h": "c",
+        "keysym.h": "c",
+        "x.h": "c"
+    }
+}
