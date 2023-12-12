@@ -6,21 +6,17 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:36:02 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/12/08 17:40:45 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:36:20 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int     get_length(char *map)
+int	get_length(char *s)
 {
-	int     fd;
-	int     length;
-	char    *s;
-	int index;
-	
-	fd = open(map, O_RDONLY);
-	s = get_next_line(fd);
+	int	length;
+	int	index;
+
 	length = 0;
 	index = 0;
 	while (s[index])
@@ -35,28 +31,27 @@ int     get_length(char *map)
 	}
 	if (s[index - 2] == ' ')
 		length--;
-	while (s != NULL)
-		s = get_next_line(fd);
-	close(fd);
 	return (length + 1);
 }
 
-int     get_height(char *map)
+void	get_stats(t_map *map, char *path_map)
 {
-	int     fd;
-	int     height;
-	char    *s;
+	char	*s;
 
-	fd = open(map, O_RDONLY);
-	s = get_next_line(fd);
-	height = 0;
+	map->height = 0;
+	map->fd = open(path_map, O_RDONLY);
+	s = get_next_line(map->fd);
+	map->length = get_length(s);
+	free(s);
 	while (s != NULL)
 	{
-		s = get_next_line(fd);
-		height++;
+		s = get_next_line(map->fd);
+		free(s);
+		map->height++;
 	}
-	close(fd);
-	return(height);
+	map->map = alloc_map(map);
+	close(map->fd);
+	map->map = fill_map(map, path_map);
 }
 
 void	reverse_line(int *s, int length)
@@ -67,68 +62,47 @@ void	reverse_line(int *s, int length)
 
 	i = 0;
 	j = length - 1;
-	while (i < length / 2 )
+	while (i < length / 2)
 	{
 		k = s[i];
 		s[i] = s[j];
 		s[j] = k;
 		i++;
-		j--;	
+		j--;
 	}
 }
 
-int     **fill_map(int **tab, char *map, int height, int length)
+int	**fill_map(t_map *map, char *path_map)
 {
-	int     fd;
-	char *line;
-	int     i;
+	int		fd;
+	int		i;
+	char	*line;
 
-	fd = open(map, O_RDONLY);
+	fd = open(path_map, O_RDONLY);
 	i = 0;
-	
-	while(i < height)
+	while (i < map->height)
 	{
 		line = get_next_line(fd);
-		set_numbers(line, tab[i], length);
-		reverse_line(tab[i], length);
+		set_numbers(line, map->map[i], map->length);
+		free(line);
+		reverse_line(map->map[i], map->length);
 		i++;
 	}
-	return (tab);
+	close(fd);
+	return (map->map);
 }
 
-int     **alloc_map(char *map)
+int	**alloc_map(t_map *map)
 {
-	int     height;
-	int     length;
-	int     **tab;
-	int     i;
+	int	**tab;
+	int	i;
 
-	height = get_height(map);
-	length = get_length(map);
-	tab = malloc(sizeof(int*) * height);
+	tab = malloc(sizeof(int *) * map->height);
 	i = 0;
-	while(i < height)
+	while (i < map->height)
 	{
-		tab[i] = malloc(sizeof(int) * length);                
+		tab[i] = malloc(sizeof(int) * map->length);
 		++i;
 	}
-	fill_map(tab, map, height, length);
 	return (tab);
 }
-
-// void    print_tab(int **tab, int length, int height)
-// {
-// 	int     i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while(i < height)
-// 	{
-// 		while (j < length)
-// 			printf("%d ", tab[i][j++]);
-// 		printf("\n");
-// 		i++;
-// 		j = 0;
-// 	}
-// }

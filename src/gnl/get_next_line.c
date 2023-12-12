@@ -6,15 +6,15 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:02:30 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/12/08 20:11:09 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:11:00 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./get_next_line.h"
+#include "../../inc/get_next_line.h"
 
 char	*get_next_line(int fd)
 {
-	static char	*stock;
+	static char	*stock = NULL;
 	t_data		datas;
 	int			status;
 
@@ -26,15 +26,11 @@ char	*get_next_line(int fd)
 	if (status == 0)
 		return (NULL);
 	if (status == 1)
-	{
-		//printf("tmp is %s\n", datas.tmp);
 		return (datas.tmp);
-	}
 	datas.tmp = stock;
 	free(datas.buf);
 	stock = get_stock_after_newline(stock + datas.newline_index + 1);
 	datas.tmp[datas.newline_index + 1] = '\0';
-	//printf("tmp is %s\n", datas.tmp);
 	return (datas.tmp);
 }
 

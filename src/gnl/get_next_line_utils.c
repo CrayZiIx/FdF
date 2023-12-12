@@ -6,11 +6,11 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:02:25 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/11/10 16:52:31 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/12/11 10:44:17 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./get_next_line.h"
+#include "../../inc/get_next_line.h"
 
 ssize_t	ft_strlen(char	*str)
 {
@@ -18,7 +18,9 @@ ssize_t	ft_strlen(char	*str)
 
 	i = 0;
 	if (str == NULL)
+	{
 		return (0);
+	}
 	while (str[i] != '\0')
 		i++;
 	return (i);

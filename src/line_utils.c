@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   line_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:07:29 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/12/12 13:36:43 by jolecomt         ###   ########.fr       */
+/*   Created: 2023/12/12 12:29:55 by jolecomt          #+#    #+#             */
+/*   Updated: 2023/12/12 12:30:39 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int	ft_atoi(const char **s)
+void	swap_co(int *x0, int *x1, int *y0, int *y1)
 {
-	int	result;
-	int	sign;
+	int	x;
+	int	y;
 
-	result = 0;
-	sign = 1;
-	while (**s == ' ')
-		++(*s);
-	if (**s == '-')
-	{
-		sign = -1;
-		++(*s);
-	}
-	while (**s >= '0' && **s <= '9')
-	{
-		result = result * 10 + (**s - '0');
-		++(*s);
-	}
-	if (**s == ',')
-	{
-		while (**s != ' ' && **s != '\n' && **s != '\0')
-			++(*s);
-	}
-	return (result * sign);
+	x = *x0;
+	*x0 = *x1;
+	*x1 = x;
+	y = *y0;
+	*y0 = *y1;
+	*y1 = y;
 }
