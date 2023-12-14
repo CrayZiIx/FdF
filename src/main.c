@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:41:08 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/12/13 17:08:51 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:06:14 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,22 @@ void	free_map(t_map *map)
 
 int	check_if_null(int fd)
 {
-	if (get_next_line(fd) == NULL)
-		return (1);
-	while (get_next_line(fd) != NULL)
-		get_next_line(fd);
-	return (0);
+	char	*s;
+	int		ret;
+
+	ret = 0;
+	s = get_next_line(fd);
+	if (s == NULL)
+		ret = 1;
+	free(s);
+	while (s != NULL)
+	{
+		s = get_next_line(fd);
+		free(s);
+	}
+	if (fd >= 0)
+		close(fd);
+	return (ret);
 }
 
 int	main(int argc, char **argv)
@@ -46,9 +57,10 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	fd = open(argv[1], O_RDONLY);
-	if (check_if_null(fd) == 1)
+	if (check_if_null(fd) == 1 || fd < 0)
 	{
-		close(fd);
+		if (fd >= 0)
+			close(fd);
 		write(1, "Please check in 'utils/test_maps' for a valid map!2\n", 53);
 		return (1);
 	}

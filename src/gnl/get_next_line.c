@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 13:02:30 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/12/12 13:11:00 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:05:24 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*concatenate_bufer(char *stock, char *buf)
 	int		i;
 	int		y;
 
+	if (buf == NULL)
+		return (NULL);
 	ret = malloc(sizeof(char) * (ft_strlen(stock) + ft_strlen(buf) + 1));
 	i = 0;
 	if (stock != NULL)
