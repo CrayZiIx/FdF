@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:36:02 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/12/12 16:34:23 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:10:02 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ int	get_length(char *s)
 	return (length + 1);
 }
 
-void	get_stats(t_map *map, char *path_map)
+int	get_stats(t_map *map, char *path_map)
 {
 	char	*s;
 
 	map->height = 0;
 	map->fd = open(path_map, O_RDONLY);
 	s = get_next_line(map->fd);
+	if (s == NULL)
+		return (1);
 	map->length = get_length(s);
 	free(s);
 	while (s != NULL)
@@ -52,6 +54,7 @@ void	get_stats(t_map *map, char *path_map)
 	map->map = alloc_map(map);
 	close(map->fd);
 	map->map = fill_map(map, path_map);
+	return (0);
 }
 
 void	reverse_line(int *s, int length)

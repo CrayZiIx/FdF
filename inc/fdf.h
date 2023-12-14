@@ -6,7 +6,7 @@
 /*   By: jolecomt <jolecomt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:20:55 by jolecomt          #+#    #+#             */
-/*   Updated: 2023/12/12 14:04:02 by jolecomt         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:10:14 by jolecomt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void			set_color(t_color *color, int **map, int x, int y);
 /*----parsing.c----*/
 int				**fill_map(t_map *map, char *path_map);
 int				**alloc_map(t_map *map);
-void			get_stats(t_map *map, char *path_map);
+int				get_stats(t_map *map, char *path_map);
 void			reverse_line(int *s, int length);
 int				get_length(char *s);
 
